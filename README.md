@@ -1,11 +1,10 @@
 # ECMAScript 6 <sup>[git.io/es6features](http://git.io/es6features)</sup>
 
 ## 简介
-ECMAScript 6, 又叫做 ECMAScript 2015, 是最新版本的Script標準.  ES6 is a significant update to the language, and the first update to the language since ES5 was standardized in 2009. Implementation of these features in major JavaScript engines is [underway now](http://kangax.github.io/es5-compat-table/es6/).
+ECMAScript 6, 又叫做 ECMAScript 2015, 是最新版本的Script標準.  ES6是對編程語言的巨大改進，也是自從ES52009年發佈標準后的第一次更新它的实施步骤在 [underway now](http://kangax.github.io/es5-compat-table/es6/).
 
-See the [ES6 standard](http://www.ecma-international.org/ecma-262/6.0/) for full specification of the ECMAScript 6 language.
-
-ES6 includes the following new features:
+在这里可以看到ES6的详细说明 [ES6 standard](http://www.ecma-international.org/ecma-262/6.0/) 
+ES6 包括以下特征:
 - [arrows](#arrows)
 - [classes](#classes)
 - [enhanced object literals](#enhanced-object-literals)
@@ -31,7 +30,7 @@ ES6 includes the following new features:
 ## ECMAScript 6 Features
 
 ### Arrows
-Arrows are a function shorthand using the `=>` syntax.  They are syntactically similar to the related feature in C#, Java 8 and CoffeeScript.  They support both statement block bodies as well as expression bodies which return the value of the expression.  Unlike functions, arrows share the same lexical `this` as their surrounding code.
+箭头的功能符号就是 `=>` . 它在结构上类似C#, Java 8 and CoffeeScript.他支持声明和返回值的表达式，与函数不同，箭头也可以代替‘this’.
 
 ```JavaScript
 // Expression bodies
@@ -57,7 +56,7 @@ var bob = {
 ```
 
 ### Classes
-ES6 classes are a simple sugar over the prototype-based OO pattern.  Having a single convenient declarative form makes class patterns easier to use, and encourages interoperability.  Classes support prototype-based inheritance, super calls, instance and static methods and constructors.
+ES6的类式面向对象模型的单糖。有表单声明使得它更好用也更好交互。类支持继承模型，父继承，实例，静态方法和构造函数。
 
 ```JavaScript
 class SkinnedMesh extends THREE.Mesh {
@@ -86,7 +85,7 @@ class SkinnedMesh extends THREE.Mesh {
 ```
 
 ### Enhanced Object Literals
-Object literals are extended to support setting the prototype at construction, shorthand for `foo: foo` assignments, defining methods, making super calls, and computing property names with expressions.  Together, these also bring object literals and class declarations closer together, and let object-based design benefit from some of the same conveniences.
+对象按照字面意思是支持原型构造比如‘foo:foo’定义了方法，调用了父类构造函数，并计算出具体的名字。同时，这使得对象的语义和类声明更加贴近，面向对象设计更加方便
 
 ```JavaScript
 var obj = {
@@ -105,7 +104,7 @@ var obj = {
 ```
 
 ### Template Strings
-Template strings provide syntactic sugar for constructing strings.  This is similar to string interpolation features in Perl, Python and more.  Optionally, a tag can be added to allow the string construction to be customized, avoiding injection attacks or constructing higher level data structures from string contents.
+字符串模板提供字符串构造的语法糖。它类似于字符串在其他语言中的用法，如perl,python等。有时添加标签使得字符串的构建可以定制。防止注入攻击或者从字符串构造更高级的数据结构。
 
 ```JavaScript
 // Basic literal string creation
@@ -128,6 +127,7 @@ POST`http://foo.org/bar?a=${a}&b=${b}
 ```
 
 ### Destructuring
+解构同意捆绑通过模式匹配，可以匹配数组和对象。像‘foo["bar"]’这样找不到属性值时产生‘未定义’值，而不会导致致命的错误。
 Destructuring allows binding using pattern matching, with support for matching arrays and objects.  Destructuring is fail-soft, similar to standard object lookup `foo["bar"]`, producing `undefined` values when not found.
 
 ```JavaScript
@@ -158,6 +158,7 @@ a === 1;
 ```
 
 ### Default + Rest + Spread
+设置默认参数值。在函数调用时将数组转化为连续的参数。将尾参数绑定数组。免去了参数和更加直接的地址传递。
 Callee-evaluated default parameter values.  Turn an array into consecutive arguments in a function call.  Bind trailing parameters to an array.  Rest replaces the need for `arguments` and addresses common cases more directly.
 
 ```JavaScript
@@ -183,6 +184,7 @@ f(...[1,2,3]) == 6
 ```
 
 ### Let + Const
+域范围就是构建的范围。‘let’是新的数据变量。‘const’是单赋值。静态在赋值前不能使用。
 Block-scoped binding constructs.  `let` is the new `var`.  `const` is single-assignment.  Static restrictions prevent use before assignment.
 
 
@@ -203,6 +205,7 @@ function f() {
 ```
 
 ### Iterators + For..Of
+迭代器类似CLR IEnumerable或者java迭代器。 将‘for..in’的迭代归纳为‘for..of’基于迭代器的迭代。不需要数组的实现，使得懒的模块设计者喜欢LINQ.
 Iterator objects enable custom iteration like CLR IEnumerable or Java Iterable.  Generalize `for..in` to custom iterator-based iteration with `for..of`.  Don’t require realizing an array, enabling lazy design patterns like LINQ.
 
 ```JavaScript
@@ -225,7 +228,7 @@ for (var n of fibonacci) {
   console.log(n);
 }
 ```
-
+迭代时基于鸭子类型的接口。
 Iteration is based on these duck-typed interfaces (using [TypeScript](http://typescriptlang.org) type syntax for exposition only):
 ```TypeScript
 interface IteratorResult {
@@ -241,8 +244,9 @@ interface Iterable {
 ```
 
 ### Generators
+代码生产器通过‘function*’,'yield'简化了迭代器的操作。当函数声明为function*就返回一个代码生成器。生成器是迭代器的子类型包含‘next’,'throw'.这使得只能够流回生成器，所以‘yield’是一个表达式它返回一个值。
 Generators simplify iterator-authoring using `function*` and `yield`.  A function declared as function* returns a Generator instance.  Generators are subtypes of iterators which include additional  `next` and `throw`.  These enable values to flow back into the generator, so `yield` is an expression form which returns a value (or throws).
-
+代码生成器也可以在异步中使用。
 Note: Can also be used to enable ‘await’-like async programming, see also ES7 `await` proposal.
 
 ```JavaScript
@@ -276,6 +280,7 @@ interface Generator extends Iterator {
 ```
 
 ### Unicode
+不断地有其他方式支持完整编码，包括在字符串中的文字形式的编码和‘u’模式的代码处理以及新的APIs以21位字符编码处理字符串。这些方式在javascript中支持构建全局应用。
 Non-breaking additions to support full Unicode, including new Unicode literal form in strings and new RegExp `u` mode to handle code points, as well as new APIs to process strings at the 21bit code points level.  These additions support building global apps in JavaScript.
 
 ```JavaScript
@@ -298,6 +303,7 @@ for(var c of "𠮷") {
 ```
 
 ### Modules
+语言级对模块和组件定的支持。借用JavaScript的库编写代码。运行行为由主机定义的默认装在器决定 (AMD, CommonJS)。间接的，这是异步异步也就是说编写的模块在库模块运行后才会执行。
 Language-level support for modules for component definition.  Codifies patterns from popular JavaScript module loaders (AMD, CommonJS). Runtime behaviour defined by a host-defined default loader.  Implicitly async model – no code executes until requested modules are available and processed.
 
 ```JavaScript
@@ -335,6 +341,7 @@ alert("2π = " + ln(e)*pi*2);
 ```
 
 ### Module Loaders
+模块导入需要：动态装载，状态独立，独立的全局命名空间，编译中断，虚拟化
 Module loaders support:
 - Dynamic loading
 - State isolation
@@ -342,6 +349,7 @@ Module loaders support:
 - Compilation hooks
 - Nested virtualization
 
+可以配置默认装载模块，并且新的装在器可以构在独立的或者指定的环境中建值和代码
 The default module loader can be configured, and new loaders can be constructed to evaluate and load code in isolated or constrained contexts.
 
 ```JavaScript
@@ -362,6 +370,8 @@ System.set('jquery', Module({$: $})); // WARNING: not yet finalized
 ```
 
 ### Map + Set + WeakMap + WeakSet
+Map + Set + WeakMap + WeakSet是对普通算法有效的数据结构。 WeakMaps提供无内存溢出的键值表。
+
 Efficient data structures for common algorithms.  WeakMaps provides leak-free object-key’d side tables.
 
 ```JavaScript
@@ -389,6 +399,7 @@ ws.add({ data: 42 });
 ```
 
 ### Proxies
+代理可以用一系列的行为在主机创建对象。可以用在拦截，对象虚拟化，编译等。
 Proxies enable creation of objects with the full range of behaviors available to host objects.  Can be used for interception, object virtualization, logging/profiling, etc.
 
 ```JavaScript
@@ -440,6 +451,7 @@ var handler =
 ```
 
 ### Symbols
+符号提供控制对象状态的入口。符号既可以是字符串也可以是符号。符号是一个新的私有类型。在调试中可以选择描述参数但它并不是主键。符号是唯一的但它不是私有的因为他们通过调用getOwnPropertySymbols可以获得他们的值。
 Symbols enable access control for object state.  Symbols allow properties to be keyed by either `string` (as in ES5) or `symbol`.  Symbols are a new primitive type. Optional `description` parameter used in debugging - but is not part of identity.  Symbols are unique (like gensym), but not private since they are exposed via reflection features like `Object.getOwnPropertySymbols`.
 
 
@@ -467,6 +479,11 @@ c["key"] === undefined
 ```
 
 ### Subclassable Built-ins
+在ES6中，数组，数据和DOM中的元素可以是子类。对象的构建函数叫‘Ctor’有以下两种使用方法。
+-在增加对象的行为时，调用 `Ctor[@@create]`来确认对象位置。
+-调用构造函数对对象进行实例化。
+我们知道 `@@create`这个符号是通过 `Symbol.create`可用。内置属性，函数对`@@create`是直接可见的。
+
 In ES6, built-ins like `Array`, `Date` and DOM `Element`s can be subclassed.
 
 Object construction for a function named `Ctor` now uses two-phases (both virtually dispatched):
@@ -499,6 +516,7 @@ arr.length == 2
 ```
 
 ### Math + Number + String + Array + Object APIs
+Math + Number + String + Array + Object APIs是新的外部库，包括数学库，数组转变助手，字符串助手和对象的拷贝。
 Many new library additions, including core Math libraries, Array conversion helpers, String helpers, and Object.assign for copying.
 
 ```JavaScript
@@ -527,6 +545,7 @@ Object.assign(Point, { origin: new Point(0,0) })
 ```
 
 ### Binary and Octal Literals
+八进制的数以‘o’开头，二进制的数以‘b’开头。
 Two new numeric literal forms are added for binary (`b`) and octal (`o`).
 
 ```JavaScript
@@ -535,6 +554,7 @@ Two new numeric literal forms are added for binary (`b`) and octal (`o`).
 ```
 
 ### Promises
+Promises是异步编程的库。这个库是一个展示那些可能在未来有用的值的类。这个库也在许多JavaScript库中使用。
 Promises are a library for asynchronous programming.  Promises are a first class representation of a value that may be made available in the future.  Promises are used in many existing JavaScript libraries.
 
 ```JavaScript
@@ -554,6 +574,7 @@ var p = timeout(1000).then(() => {
 ```
 
 ### Reflect API
+完整的reflection API将运行级上的元操作在对象上展示出来。这是对代理接口的反转，同时也允许相同元操作间有联系（作为代理陷阱）。尤其在不熟代理时十分有用。 
 Full reflection API exposing the runtime-level meta-operations on objects.  This is effectively the inverse of the Proxy API, and allows making calls corresponding to the same meta-operations as the proxy traps.  Especially useful for implementing proxies.
 
 ```JavaScript
@@ -561,6 +582,8 @@ Full reflection API exposing the runtime-level meta-operations on objects.  This
 ```
 
 ### Tail Calls
+Tail Calls就是在尾部的位置调用以保证不会超出堆栈的界限。让递归算法在面对没有界限的输入时更安全。
+
 Calls in tail-position are guaranteed to not grow the stack unboundedly.  Makes recursive algorithms safe in the face of unbounded inputs.
 
 ```JavaScript
