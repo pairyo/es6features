@@ -1,7 +1,8 @@
 # ECMAScript 6 <sup>[git.io/es6features](http://git.io/es6features)</sup>
 
 ## 简介
-ECMAScript 6, 又叫做 ECMAScript 2015, 是最新版本的Script標準.  ES6是對編程語言的巨大改進，也是自從ES52009年發佈標準后的第一次更新它的实施步骤在 [underway now](http://kangax.github.io/es5-compat-table/es6/).
+ECMAScript 6, 又叫做ECMAScript 2015, 是最新版本的Script标准。ES6是Javascript语言的巨大改进，也是自2009年后发布ES5标准版本后的首次更新。
+这些新特性在各大JavaScript中的实现可以在 [underway now](http://kangax.github.io/es5-compat-table/es6/)中找到。
 
 在这里可以看到ES6的详细说明 [ES6 standard](http://www.ecma-international.org/ecma-262/6.0/) 
 ES6 包括以下特征:
@@ -30,21 +31,20 @@ ES6 包括以下特征:
 ## ECMAScript 6 Features
 
 ### Arrows
-箭头的功能符号就是 `=>` . 它在结构上类似C#, Java 8 and CoffeeScript.他支持声明和返回值的表达式，与函数不同，箭头也可以代替‘this’.
-
+箭头就是使用`=>`语法表示的函数简写。 它在结构上类似C#，Java 8和CoffeeScript。他支持声明式结构和含有返回值的表达式。与函数不同的是，箭头内的'this'与箭头周围的代码一致(译者注: 相当于帮你省掉了bind(this))。
 ```JavaScript
-// Expression bodies
+// 表达式写法(有返回值) 
 var odds = evens.map(v => v + 1);
 var nums = evens.map((v, i) => v + i);
 var pairs = evens.map(v => ({even: v, odd: v + 1}));
 
-// Statement bodies
+// 声明式写法(有返回值)
 nums.forEach(v => {
   if (v % 5 === 0)
     fives.push(v);
 });
 
-// Lexical this
+// this
 var bob = {
   _name: "Bob",
   _friends: [],
@@ -57,7 +57,6 @@ var bob = {
 
 ### Classes
 ES6的类式面向对象模型的单糖。有表单声明使得它更好用也更好交互。类支持继承模型，父继承，实例，静态方法和构造函数。
-
 ```JavaScript
 class SkinnedMesh extends THREE.Mesh {
   constructor(geometry, materials) {
